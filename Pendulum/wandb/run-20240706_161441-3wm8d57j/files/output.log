@@ -1,0 +1,38 @@
+
+Iteration 1/1000, Epsilon: 1.0
+Iteration 1/1000, Epsilon: 1.0
+Average Reward: -4293.674134508268, Average Steps: 700.0
+Iteration 2/1000, Epsilon: 0.995
+Average Reward: -4175.378243359494, Average Steps: 700.0
+Iteration 3/1000, Epsilon: 0.990025
+Average Reward: -3733.591503919694, Average Steps: 700.0
+Iteration 4/1000, Epsilon: 0.985074875
+Average Reward: -4904.875510233355, Average Steps: 700.0
+Iteration 5/1000, Epsilon: 0.980149500625
+Average Reward: -4541.442698686663, Average Steps: 700.0
+Iteration 6/1000, Epsilon: 0.975248753121875
+Average Reward: -3758.856727571486, Average Steps: 700.0
+Iteration 7/1000, Epsilon: 0.9703725093562656
+Average Reward: -4467.192427666372, Average Steps: 700.0
+Iteration 8/1000, Epsilon: 0.9655206468094842
+Average Reward: -3800.4374843930723, Average Steps: 700.0
+Iteration 9/1000, Epsilon: 0.9606930435754368
+Average Reward: -4280.62946111378, Average Steps: 700.0
+Iteration 10/1000, Epsilon: 0.9558895783575596
+Average Reward: -3769.623183869783, Average Steps: 700.0
+Iteration 11/1000, Epsilon: 0.9511101304657719
+Average Reward: -4602.70313406486, Average Steps: 700.0
+Iteration 12/1000, Epsilon: 0.946354579813443
+Average Reward: -4781.930783705864, Average Steps: 700.0
+Iteration 13/1000, Epsilon: 0.9416228069143757
+Average Reward: -4086.6854173206652, Average Steps: 700.0
+Iteration 14/1000, Epsilon: 0.9369146928798039
+Average Reward: -3647.548714361831, Average Steps: 700.0
+Iteration 15/1000, Epsilon: 0.9322301194154049
+Average Reward: -4376.255715385996, Average Steps: 700.0
+Iteration 16/1000, Epsilon: 0.9275689688183278
+Average Reward: -3963.8279800677933, Average Steps: 700.0
+Iteration 17/1000, Epsilon: 0.9229311239742362
+Average Reward: -4645.984377615964, Average Steps: 700.0
+Iteration 18/1000, Epsilon: 0.918316468354365
+Average Reward: -3664.8419843627075, Average Steps: 700.0

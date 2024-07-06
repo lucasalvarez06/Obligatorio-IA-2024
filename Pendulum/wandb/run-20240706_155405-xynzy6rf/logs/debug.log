@@ -1,0 +1,107 @@
+2024-07-06 15:54:05,615 INFO    MainThread:39224 [wandb_setup.py:_flush():76] Current SDK version is 0.17.4
+2024-07-06 15:54:05,615 INFO    MainThread:39224 [wandb_setup.py:_flush():76] Configure stats pid to 39224
+2024-07-06 15:54:05,615 INFO    MainThread:39224 [wandb_setup.py:_flush():76] Loading settings from C:\Users\lucas\.config\wandb\settings
+2024-07-06 15:54:05,615 INFO    MainThread:39224 [wandb_setup.py:_flush():76] Loading settings from c:\Users\lucas\OneDrive\Documentos\Facultad\Inteligencia Artificial\Obligatorio-IA-2024\Pendulum\wandb\settings
+2024-07-06 15:54:05,615 INFO    MainThread:39224 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
+2024-07-06 15:54:05,615 INFO    MainThread:39224 [wandb_setup.py:_flush():76] Applying setup settings: {'_disable_service': False}
+2024-07-06 15:54:05,616 INFO    MainThread:39224 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program': '<python with no main file>'}
+2024-07-06 15:54:05,616 INFO    MainThread:39224 [wandb_setup.py:_flush():76] Applying login settings: {}
+2024-07-06 15:54:05,616 INFO    MainThread:39224 [wandb_init.py:_log_setup():529] Logging user logs to c:\Users\lucas\OneDrive\Documentos\Facultad\Inteligencia Artificial\Obligatorio-IA-2024\Pendulum\wandb\run-20240706_155405-xynzy6rf\logs\debug.log
+2024-07-06 15:54:05,616 INFO    MainThread:39224 [wandb_init.py:_log_setup():530] Logging internal logs to c:\Users\lucas\OneDrive\Documentos\Facultad\Inteligencia Artificial\Obligatorio-IA-2024\Pendulum\wandb\run-20240706_155405-xynzy6rf\logs\debug-internal.log
+2024-07-06 15:54:05,616 INFO    MainThread:39224 [wandb_init.py:_jupyter_setup():475] configuring jupyter hooks <wandb.sdk.wandb_init._WandbInit object at 0x000001B6E27AC830>
+2024-07-06 15:54:05,616 INFO    MainThread:39224 [wandb_init.py:init():569] calling init triggers
+2024-07-06 15:54:05,616 INFO    MainThread:39224 [wandb_init.py:init():576] wandb.init called with sweep_config: {}
+config: {}
+2024-07-06 15:54:05,616 INFO    MainThread:39224 [wandb_init.py:init():619] starting backend
+2024-07-06 15:54:05,616 INFO    MainThread:39224 [wandb_init.py:init():623] setting up manager
+2024-07-06 15:54:05,618 INFO    MainThread:39224 [backend.py:_multiprocessing_setup():105] multiprocessing start_methods=spawn, using: spawn
+2024-07-06 15:54:05,622 INFO    MainThread:39224 [wandb_init.py:init():631] backend started and connected
+2024-07-06 15:54:05,631 INFO    MainThread:39224 [wandb_run.py:_label_probe_notebook():1334] probe notebook
+2024-07-06 15:54:05,632 INFO    MainThread:39224 [wandb_run.py:_label_probe_notebook():1344] Unable to probe notebook: 'NoneType' object has no attribute 'get'
+2024-07-06 15:54:05,632 INFO    MainThread:39224 [wandb_init.py:init():720] updated telemetry
+2024-07-06 15:54:05,683 INFO    MainThread:39224 [wandb_init.py:init():753] communicating run to backend with 90.0 second timeout
+2024-07-06 15:54:06,596 INFO    MainThread:39224 [wandb_run.py:_on_init():2402] communicating current version
+2024-07-06 15:54:07,263 INFO    MainThread:39224 [wandb_run.py:_on_init():2411] got version response 
+2024-07-06 15:54:07,263 INFO    MainThread:39224 [wandb_init.py:init():804] starting run threads in backend
+2024-07-06 15:54:07,571 INFO    MainThread:39224 [wandb_run.py:_console_start():2380] atexit reg
+2024-07-06 15:54:07,571 INFO    MainThread:39224 [wandb_run.py:_redirect():2235] redirect: wrap_raw
+2024-07-06 15:54:07,571 INFO    MainThread:39224 [wandb_run.py:_redirect():2300] Wrapping output streams.
+2024-07-06 15:54:07,571 INFO    MainThread:39224 [wandb_run.py:_redirect():2325] Redirects installed.
+2024-07-06 15:54:07,574 INFO    MainThread:39224 [wandb_init.py:init():847] run started, returning control to user process
+2024-07-06 15:54:07,579 INFO    MainThread:39224 [jupyter.py:save_ipynb():372] not saving jupyter notebook
+2024-07-06 15:54:07,579 INFO    MainThread:39224 [wandb_init.py:_pause_backend():440] pausing backend
+2024-07-06 15:54:23,150 INFO    MainThread:39224 [wandb_init.py:_resume_backend():445] resuming backend
+2024-07-06 15:54:23,152 INFO    MainThread:39224 [wandb_config.py:__setitem__():151] config set alpha = 0.1 - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x000001B6E549CE90>>
+2024-07-06 15:54:23,153 INFO    MainThread:39224 [wandb_run.py:_config_callback():1382] config_cb alpha 0.1 None
+2024-07-06 15:54:23,153 INFO    MainThread:39224 [wandb_config.py:__setitem__():151] config set gamma = 0.99 - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x000001B6E549CE90>>
+2024-07-06 15:54:23,153 INFO    MainThread:39224 [wandb_run.py:_config_callback():1382] config_cb gamma 0.99 None
+2024-07-06 15:54:23,153 INFO    MainThread:39224 [wandb_config.py:__setitem__():151] config set epsilon_start = 1.0 - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x000001B6E549CE90>>
+2024-07-06 15:54:23,153 INFO    MainThread:39224 [wandb_run.py:_config_callback():1382] config_cb epsilon_start 1.0 None
+2024-07-06 15:54:23,153 INFO    MainThread:39224 [wandb_config.py:__setitem__():151] config set epsilon_min = 0.1 - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x000001B6E549CE90>>
+2024-07-06 15:54:23,153 INFO    MainThread:39224 [wandb_run.py:_config_callback():1382] config_cb epsilon_min 0.1 None
+2024-07-06 15:54:23,155 INFO    MainThread:39224 [wandb_config.py:__setitem__():151] config set epsilon_decay = 0.995 - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x000001B6E549CE90>>
+2024-07-06 15:54:23,155 INFO    MainThread:39224 [wandb_run.py:_config_callback():1382] config_cb epsilon_decay 0.995 None
+2024-07-06 15:54:23,155 INFO    MainThread:39224 [wandb_config.py:__setitem__():151] config set num_episodes = 1000 - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x000001B6E549CE90>>
+2024-07-06 15:54:23,155 INFO    MainThread:39224 [wandb_run.py:_config_callback():1382] config_cb num_episodes 1000 None
+2024-07-06 15:54:23,155 INFO    MainThread:39224 [wandb_config.py:__setitem__():151] config set state_size = [50, 50, 50] - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x000001B6E549CE90>>
+2024-07-06 15:54:23,155 INFO    MainThread:39224 [wandb_run.py:_config_callback():1382] config_cb state_size [50, 50, 50] None
+2024-07-06 15:54:23,155 INFO    MainThread:39224 [wandb_config.py:__setitem__():151] config set action_size = 3 - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x000001B6E549CE90>>
+2024-07-06 15:54:23,156 INFO    MainThread:39224 [wandb_run.py:_config_callback():1382] config_cb action_size 3 None
+2024-07-06 15:54:23,156 INFO    MainThread:39224 [jupyter.py:save_ipynb():372] not saving jupyter notebook
+2024-07-06 15:54:23,156 INFO    MainThread:39224 [wandb_init.py:_pause_backend():440] pausing backend
+2024-07-06 15:54:27,367 INFO    MainThread:39224 [wandb_init.py:_resume_backend():445] resuming backend
+2024-07-06 15:54:27,372 INFO    MainThread:39224 [jupyter.py:save_ipynb():372] not saving jupyter notebook
+2024-07-06 15:54:27,372 INFO    MainThread:39224 [wandb_init.py:_pause_backend():440] pausing backend
+2024-07-06 15:54:30,072 INFO    MainThread:39224 [wandb_init.py:_resume_backend():445] resuming backend
+2024-07-06 15:54:30,216 INFO    MainThread:39224 [jupyter.py:save_ipynb():372] not saving jupyter notebook
+2024-07-06 15:54:30,216 INFO    MainThread:39224 [wandb_init.py:_pause_backend():440] pausing backend
+2024-07-06 15:55:53,308 INFO    MainThread:39224 [wandb_init.py:_resume_backend():445] resuming backend
+2024-07-06 15:55:53,309 INFO    MainThread:39224 [wandb_config.py:__setitem__():151] config set alpha = 0.1 - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x000001B6E549CE90>>
+2024-07-06 15:55:53,310 INFO    MainThread:39224 [wandb_run.py:_config_callback():1382] config_cb alpha 0.1 None
+2024-07-06 15:55:53,311 INFO    MainThread:39224 [wandb_config.py:__setitem__():151] config set gamma = 0.99 - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x000001B6E549CE90>>
+2024-07-06 15:55:53,312 INFO    MainThread:39224 [wandb_run.py:_config_callback():1382] config_cb gamma 0.99 None
+2024-07-06 15:55:53,313 INFO    MainThread:39224 [wandb_config.py:__setitem__():151] config set epsilon_start = 1.0 - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x000001B6E549CE90>>
+2024-07-06 15:55:53,314 INFO    MainThread:39224 [wandb_run.py:_config_callback():1382] config_cb epsilon_start 1.0 None
+2024-07-06 15:55:53,314 INFO    MainThread:39224 [wandb_config.py:__setitem__():151] config set epsilon_min = 0.1 - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x000001B6E549CE90>>
+2024-07-06 15:55:53,314 INFO    MainThread:39224 [wandb_run.py:_config_callback():1382] config_cb epsilon_min 0.1 None
+2024-07-06 15:55:53,314 INFO    MainThread:39224 [wandb_config.py:__setitem__():151] config set epsilon_decay = 0.995 - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x000001B6E549CE90>>
+2024-07-06 15:55:53,314 INFO    MainThread:39224 [wandb_run.py:_config_callback():1382] config_cb epsilon_decay 0.995 None
+2024-07-06 15:55:53,315 INFO    MainThread:39224 [wandb_config.py:__setitem__():151] config set num_episodes = 1000 - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x000001B6E549CE90>>
+2024-07-06 15:55:53,315 INFO    MainThread:39224 [wandb_run.py:_config_callback():1382] config_cb num_episodes 1000 None
+2024-07-06 15:55:53,315 INFO    MainThread:39224 [wandb_config.py:__setitem__():151] config set state_size = [50, 50, 50] - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x000001B6E549CE90>>
+2024-07-06 15:55:53,315 INFO    MainThread:39224 [wandb_run.py:_config_callback():1382] config_cb state_size [50, 50, 50] None
+2024-07-06 15:55:53,315 INFO    MainThread:39224 [wandb_config.py:__setitem__():151] config set action_size = 3 - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x000001B6E549CE90>>
+2024-07-06 15:55:53,315 INFO    MainThread:39224 [wandb_run.py:_config_callback():1382] config_cb action_size 3 None
+2024-07-06 15:55:53,315 INFO    MainThread:39224 [jupyter.py:save_ipynb():372] not saving jupyter notebook
+2024-07-06 15:55:53,315 INFO    MainThread:39224 [wandb_init.py:_pause_backend():440] pausing backend
+2024-07-06 15:55:56,822 INFO    MainThread:39224 [wandb_init.py:_resume_backend():445] resuming backend
+2024-07-06 15:55:56,823 INFO    MainThread:39224 [jupyter.py:save_ipynb():372] not saving jupyter notebook
+2024-07-06 15:55:56,823 INFO    MainThread:39224 [wandb_init.py:_pause_backend():440] pausing backend
+2024-07-06 15:55:58,573 INFO    MainThread:39224 [wandb_init.py:_resume_backend():445] resuming backend
+2024-07-06 15:55:58,587 INFO    MainThread:39224 [jupyter.py:save_ipynb():372] not saving jupyter notebook
+2024-07-06 15:55:58,587 INFO    MainThread:39224 [wandb_init.py:_pause_backend():440] pausing backend
+2024-07-06 15:57:44,136 INFO    MainThread:39224 [wandb_init.py:_resume_backend():445] resuming backend
+2024-07-06 15:57:44,150 INFO    MainThread:39224 [wandb_setup.py:_flush():76] Current SDK version is 0.17.4
+2024-07-06 15:57:44,150 INFO    MainThread:39224 [wandb_setup.py:_flush():76] Configure stats pid to 39224
+2024-07-06 15:57:44,150 INFO    MainThread:39224 [wandb_setup.py:_flush():76] Loading settings from C:\Users\lucas\.config\wandb\settings
+2024-07-06 15:57:44,150 INFO    MainThread:39224 [wandb_setup.py:_flush():76] Loading settings from c:\Users\lucas\OneDrive\Documentos\Facultad\Inteligencia Artificial\Obligatorio-IA-2024\Pendulum\wandb\settings
+2024-07-06 15:57:44,150 INFO    MainThread:39224 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
+2024-07-06 15:57:44,150 INFO    MainThread:39224 [wandb_setup.py:_flush():76] Applying setup settings: {'_disable_service': False}
+2024-07-06 15:57:44,151 INFO    MainThread:39224 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program': '<python with no main file>'}
+2024-07-06 15:57:44,151 INFO    MainThread:39224 [wandb_setup.py:_flush():76] Applying login settings: {}
+2024-07-06 15:57:44,151 INFO    MainThread:39224 [wandb_init.py:_log_setup():529] Logging user logs to c:\Users\lucas\OneDrive\Documentos\Facultad\Inteligencia Artificial\Obligatorio-IA-2024\Pendulum\wandb\run-20240706_155744-zsfceua9\logs\debug.log
+2024-07-06 15:57:44,152 INFO    MainThread:39224 [wandb_init.py:_log_setup():530] Logging internal logs to c:\Users\lucas\OneDrive\Documentos\Facultad\Inteligencia Artificial\Obligatorio-IA-2024\Pendulum\wandb\run-20240706_155744-zsfceua9\logs\debug-internal.log
+2024-07-06 15:57:44,152 INFO    MainThread:39224 [wandb_init.py:init():569] calling init triggers
+2024-07-06 15:57:44,152 INFO    MainThread:39224 [wandb_init.py:init():576] wandb.init called with sweep_config: {}
+config: {}
+2024-07-06 15:57:44,152 INFO    MainThread:39224 [wandb_init.py:init():594] re-initializing run, found existing run on stack: xynzy6rf
+2024-07-06 15:57:44,156 INFO    MainThread:39224 [wandb_run.py:_finish():2109] finishing run lucasalvarez2612-Universidad ORT Uruguay/pendulum-qlearning/xynzy6rf
+2024-07-06 15:57:44,157 INFO    MainThread:39224 [jupyter.py:save_history():444] not saving jupyter history
+2024-07-06 15:57:44,157 INFO    MainThread:39224 [jupyter.py:save_ipynb():372] not saving jupyter notebook
+2024-07-06 15:57:44,157 INFO    MainThread:39224 [wandb_init.py:_jupyter_teardown():457] cleaning up jupyter logic
+2024-07-06 15:57:44,158 INFO    MainThread:39224 [wandb_run.py:_atexit_cleanup():2349] got exitcode: 0
+2024-07-06 15:57:44,158 INFO    MainThread:39224 [wandb_run.py:_restore():2332] restore
+2024-07-06 15:57:44,159 INFO    MainThread:39224 [wandb_run.py:_restore():2338] restore done
+2024-07-06 15:57:47,787 INFO    MainThread:39224 [wandb_run.py:_footer_history_summary_info():3991] rendering history
+2024-07-06 15:57:47,787 INFO    MainThread:39224 [wandb_run.py:_footer_history_summary_info():4023] rendering summary
+2024-07-06 15:57:47,793 INFO    MainThread:39224 [wandb_run.py:_footer_sync_info():3950] logging synced files
