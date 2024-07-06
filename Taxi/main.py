@@ -99,7 +99,7 @@ if __name__ == "__main__":
     N = 10  # Cantidad de iteraciones
     L = 100  # Cantidad de episodios de prueba por iteración
     alpha = 0.1  # Tasa de aprendizaje
-    gamma = 0.99  # Factor de descuento
-    epsilon = 0.1  # Probabilidad de exploración inicial
+    gamma = 0.95  # Factor de descuento
+    epsilon = 0.5  # Probabilidad de exploración inicial
 
     main(K, N, L, alpha, gamma, epsilon)
