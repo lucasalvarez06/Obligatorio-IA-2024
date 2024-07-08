@@ -46,21 +46,36 @@ class MinimaxAgent(Agent):
         # Caso 1: Estado terminal
         if is_end:
             if winner == player:
-                return -1  # Perder es malo
-            else:
                 return 1  # Ganar es bueno
+            else:
+                return -1  # Perder es malo
 
         # Caso 2: Contar el número de monedas restantes
-        total_coins = sum(1 for row in range(board.board_size[0]) for col in range(board.board_size[1] * 2 - 1) if board.grid[row, col] == object)
-        
-        # Si queda solo una moneda, es una buena posición si es el turno del oponente
-        if total_coins == 1:
-            return 1 if player != self.player else -1
+        total_coins = sum(1 for row in range(board.board_size[0]) for col in range(board.board_size[1] * 2 - 1) if board.grid[row, col] == 1)
         
         # Caso 3: Paridad de filas
-        odd_rows = sum(1 for row in range(board.board_size[0]) if sum(1 for col in range(board.board_size[1] * 2 - 1) if board.grid[row, col] == object) % 2 != 0)
+        odd_rows = sum(1 for row in range(board.board_size[0]) if sum(1 for col in range(board.board_size[1] * 2 - 1) if board.grid[row, col] == 1) % 2 != 0)
         
-        if odd_rows % 2 != 0:
-            return 1  # Bueno tener un número impar de filas con un número impar de monedas
+        # Evaluar el Nim-Sum
+        nim_sum = 0
+        for row in range(board.board_size[0]):
+            row_sum = sum(1 for col in range(board.board_size[1] * 2 - 1) if board.grid[row, col] == 1)
+            nim_sum ^= row_sum
+        
+        # Heurística mejorada
+        utility = 0
+        
+        # Factor 1: Maximizar el número de monedas propias restantes
+        utility += total_coins
+        
+        # Factor 2: Minimizar el número de filas impares (dejar al oponente en desventaja)
+        utility -= odd_rows
+        
+        # Factor 3: Maximizar posiciones donde el Nim-Sum no es cero
+        if nim_sum != 0:
+            utility += 1
         else:
-            return -1  # Malo tener un número par de filas con un número impar de monedas
+            utility -= 1
+        
+        # Ajustar el valor final de la heurística
+        return utility

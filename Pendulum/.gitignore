@@ -1,0 +1,21 @@
+# Ignore log files
+# Ignore log files
+*.log
+
+# Ignore wandb files and directories
+wandb/
+wandb/**
+wandb/**/
+
+# Other common ignores
+__pycache__/
+*.py[cod]
+*.ipynb_checkpoints/
+.env
+.DS_Store
+node_modules/
+venv/
+env/
+.idea/
+.vscode/
+

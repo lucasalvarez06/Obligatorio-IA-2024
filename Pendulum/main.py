@@ -1,115 +1,180 @@
-import gymnasium as gym
 import numpy as np
+from pendulum_env_extended import PendulumEnvExtended
 import random
 import wandb
-from pendulum_env_extended import PendulumEnvExtended
+import pickle
 
-def optimal_policy(state, Q):
-    return np.argmax(Q[state])
+# Initialize Weights & Biases with a custom name
+wandb.init(project="pendulum-qlearning_V2", name="pendulum_run_BigTraining")
 
-def epsilon_greedy_policy(state, Q, env, epsilon=0.1):
-    explore = np.random.binomial(1, epsilon)
-    if explore:
-        action = random.choice([-2, 0, 2])  # Exploración
+# Define parameters
+LEARNING_RATE = 0.1  # Alpha
+DISCOUNT_FACTOR = 0.99  # Gamma
+EPISODES = 5000  # K
+TEST_EPISODES = 500 # L
+ITERATIONS = 250  # N
+EPSILON = 1.0  # Epsilon
+EPSILON_DECAY = 0.995  # Decay rate
+MIN_EPSILON = 0.01  # Minimum epsilon
+
+# Discretize the action space and observation space
+NUM_DISCRETE_ACTIONS = 10
+NUM_DISCRETE_OBSERVATIONS = [20, 20, 200]
+
+# Log parameters
+wandb.config.update({
+    "LEARNING_RATE": LEARNING_RATE,
+    "DISCOUNT_FACTOR": DISCOUNT_FACTOR,
+    "EPISODES": EPISODES,
+    "TEST_EPISODES": TEST_EPISODES,
+    "ITERATIONS": ITERATIONS,
+    "EPSILON": EPSILON,
+    "EPSILON_DECAY": EPSILON_DECAY,
+    "MIN_EPSILON": MIN_EPSILON
+})
+
+# Create the environment
+env = PendulumEnvExtended()
+
+# Create bins for the observation space
+obs_bins = [
+    np.linspace(-1.0, 1.0, NUM_DISCRETE_OBSERVATIONS[0]),
+    np.linspace(-1.0, 1.0, NUM_DISCRETE_OBSERVATIONS[1]),
+    np.linspace(-8.0, 8.0, NUM_DISCRETE_OBSERVATIONS[2])
+]
+
+# Discretize the observation
+def discretize_observation(observation):
+    return tuple(
+        int(np.digitize(observation[i], obs_bins[i]) - 1)
+        for i in range(len(observation))
+    )
+
+# Initialize Q-table
+q_table = np.random.uniform(low=-1, high=1, size=(NUM_DISCRETE_OBSERVATIONS + [NUM_DISCRETE_ACTIONS]))
+
+# Function to choose action based on epsilon-greedy policy
+def choose_action(state, epsilon):
+    if random.uniform(0, 1) < epsilon:
+        return random.randint(0, NUM_DISCRETE_ACTIONS - 1)
     else:
-        action = np.argmax(Q[state])
-    return action
+        return np.argmax(q_table[state])
 
-def discretize_state(state, state_bins):
-    cos_theta, sin_theta, theta_dot = state
-    indices = []
-    for i, val in enumerate([cos_theta, sin_theta, theta_dot]):
-        index = np.digitize(val, state_bins[i]) - 1
-        index = min(index, len(state_bins[i]) - 1)
-        index = max(index, 0)
-        indices.append(index)
-    return tuple(indices)
+# Function to save the model
+def save_model(model, filename):
+    with open(filename, 'wb') as file:
+        pickle.dump(model, file)
+    print(f"Modelo guardado en {filename}")
 
-def train(env, Q, K, alpha, gamma, epsilon, state_bins):
-    for episode in range(K):
-        obs, _ = env.reset()
-        done = False
-        
-        while not done:
-            state = discretize_state(obs, state_bins)
-            action = epsilon_greedy_policy(state, Q, env, epsilon)
-            real_action = np.array([action])
-            obs, reward, done, _, _ = env.step(real_action)
-            
-            next_state = discretize_state(obs, state_bins)
-            best_next_action = np.argmax(Q[next_state])
-            td_target = reward + gamma * Q[next_state, best_next_action]
-            td_delta = td_target - Q[state, action]
-            Q[state, action] += alpha * td_delta
+# Function to load the model
+def load_model(filename):
+    with open(filename, 'rb') as file:
+        model = pickle.load(file)
+    print(f"Modelo cargado desde {filename}")
+    return model
 
-def test(env, Q, L, state_bins):
+# Training function
+def train_agent(episodes, epsilon, epsilon_decay, min_epsilon):
+    global q_table
     total_rewards = []
     total_steps = []
-
-    for _ in range(L):
-        obs, _ = env.reset()
+    
+    for episode in range(episodes):
+        observation, _ = env.reset()
+        current_state = discretize_observation(observation)
         done = False
         total_reward = 0
-        step_count = 0
-        
+        steps = 0
+
         while not done:
-            state = discretize_state(obs, state_bins)
-            action = optimal_policy(state, Q)
-            real_action = np.array([action])
-            obs, reward, done, _, _ = env.step(real_action)
+            action = choose_action(current_state, epsilon)
+            torque = np.linspace(-2, 2, NUM_DISCRETE_ACTIONS)[action]
+            next_observation, reward, done, _, _ = env.step([torque])
+            next_state = discretize_observation(next_observation)
+
+            # Update Q-table using Q-learning algorithm
+            best_next_action = np.argmax(q_table[next_state])
+            q_table[current_state][action] = q_table[current_state][action] + LEARNING_RATE * (
+                reward + DISCOUNT_FACTOR * q_table[next_state][best_next_action] - q_table[current_state][action]
+            )
+
+            current_state = next_state
             total_reward += reward
-            step_count += 1
-        
+            steps += 1
+
         total_rewards.append(total_reward)
-        total_steps.append(step_count)
+        total_steps.append(steps)
 
-    return np.mean(total_rewards), np.mean(total_steps)
+        # Log the results to wandb
+        wandb.log({
+            "train_episode": episode,
+            "train_reward": total_reward,
+            "train_steps": steps,
+            "epsilon": epsilon
+        })
 
-def main(K, N, L, alpha, gamma, epsilon):
-    # Inicializar wandb
-    wandb.init(project="pendulum-q-learning", config={
-        "K": K,
-        "N": N,
-        "L": L,
-        "alpha": alpha,
-        "gamma": gamma,
-        "epsilon": epsilon
+        # Decay epsilon
+        if epsilon > min_epsilon:
+            epsilon *= epsilon_decay
+    
+    avg_reward = np.mean(total_rewards)
+    avg_steps = np.mean(total_steps)
+    
+    return avg_reward, avg_steps
+
+# Testing function
+def test_agent(test_episodes):
+    test_rewards = []
+    test_steps = []
+    
+    for test_episode in range(test_episodes):
+        observation, _ = env.reset()
+        current_state = discretize_observation(observation)
+        done = False
+        total_test_reward = 0
+        steps = 0
+
+        while not done:
+            action = np.argmax(q_table[current_state])
+            torque = np.linspace(-2, 2, NUM_DISCRETE_ACTIONS)[action]
+            next_observation, reward, done, _, _ = env.step([torque])
+            next_state = discretize_observation(next_observation)
+
+            current_state = next_state
+            total_test_reward += reward
+            steps += 1
+
+        test_rewards.append(total_test_reward)
+        test_steps.append(steps)
+        
+        # Log the results to wandb
+        wandb.log({
+            "test_episode": test_episode,
+            "test_reward": total_test_reward,
+            "test_steps": steps
+        })
+    
+    avg_test_reward = np.mean(test_rewards)
+    avg_test_steps = np.mean(test_steps)
+    
+    return avg_test_reward, avg_test_steps
+
+# Run iterations of training and testing
+for iteration in range(ITERATIONS):
+    print(f"Starting iteration {iteration + 1}/{ITERATIONS}")
+    avg_train_reward, avg_train_steps = train_agent(EPISODES, EPSILON, EPSILON_DECAY, MIN_EPSILON)
+    avg_test_reward, avg_test_steps = test_agent(TEST_EPISODES)
+    
+    wandb.log({
+        "iteration": iteration + 1,
+        "avg_train_reward": avg_train_reward,
+        "avg_train_steps": avg_train_steps,
+        "avg_test_reward": avg_test_reward,
+        "avg_test_steps": avg_test_steps
     })
 
-    # Crear el entorno
-    env = PendulumEnvExtended()
-    action_size = 3  # Número de acciones posibles
-    state_bins = [
-        np.linspace(-1, 1, 50),  # cos(theta)
-        np.linspace(-1, 1, 50),  # sin(theta)
-        np.linspace(-8, 8, 50)   # theta_dot
-    ]
+# Save the final model
+save_model(q_table, 'final_trained_model.pkl')
 
-    # Inicializar la tabla Q con ceros
-    Q = np.zeros(state_bins[0].size * state_bins[1].size * state_bins[2].size * action_size).reshape(state_bins[0].size, state_bins[1].size, state_bins[2].size, action_size)
-
-    # Iterar
-    for i in range(N):
-        # Ajustar epsilon
-        epsilon = max(0.01, epsilon * 0.99)
-        print(f"Iteration {i + 1}/{N}, Epsilon: {epsilon}")
-
-        # Entrenar
-        train(env, Q, K, alpha, gamma, epsilon, state_bins)
-
-        # Probar
-        avg_reward, avg_steps = test(env, Q, L, state_bins)
-        print(f"Average Reward: {avg_reward}, Average Steps: {avg_steps}")
-
-        # Registrar los resultados en wandb
-        wandb.log({"Iteration": i + 1, "Epsilon": epsilon, "Average Reward": avg_reward, "Average Steps": avg_steps})
-
-if __name__ == "__main__":
-    K = 1000  # Cantidad de episodios de entrenamiento por iteración
-    N = 10  # Cantidad de iteraciones
-    L = 100  # Cantidad de episodios de prueba por iteración
-    alpha = 0.1  # Tasa de aprendizaje
-    gamma = 0.95  # Factor de descuento
-    epsilon = 0.5  # Probabilidad de exploración inicial
-
-    main(K, N, L, alpha, gamma, epsilon)
+env.close()
+wandb.finish()
