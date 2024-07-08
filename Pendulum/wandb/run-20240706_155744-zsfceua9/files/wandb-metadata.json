@@ -1,0 +1,39 @@
+{
+    "os": "Windows-11-10.0.22631-SP0",
+    "python": "3.12.2",
+    "heartbeatAt": "2024-07-06T18:57:50.388981",
+    "startedAt": "2024-07-06T18:57:44.141237",
+    "docker": null,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "<python with no main file>",
+    "codePathLocal": null,
+    "git": {
+        "remote": "https://github.com/lucasalvarez06/Obligatorio-IA-2024.git",
+        "commit": "20be3f8bc9c2f6790b7f346ab55011a1a647deef"
+    },
+    "email": "lucasalvarez2612@gmail.com",
+    "root": "C:/Users/lucas/OneDrive/Documentos/Facultad/Inteligencia Artificial/Obligatorio-IA-2024",
+    "host": "Lucas-PC",
+    "username": "lucas",
+    "executable": "c:\\Users\\lucas\\anaconda3\\envs\\gym\\python.exe",
+    "cpu_count": 10,
+    "cpu_count_logical": 12,
+    "cpu_freq": {
+        "current": 1700.0,
+        "min": 0.0,
+        "max": 1700.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 1700.0,
+            "min": 0.0,
+            "max": 1700.0
+        }
+    ],
+    "disk": {},
+    "memory": {
+        "total": 15.695304870605469
+    }
+}
