@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import pickle
 import numpy as np
 import gymnasium as gym
 from taxi_env_extended import TaxiEnvExtended
@@ -55,6 +56,20 @@ def test(env, Q, L):
 
     return np.mean(total_rewards), np.mean(total_steps)
 
+
+# Function to save the model
+def save_model(model, filename):
+    with open(filename, 'wb') as file:
+        pickle.dump(model, file)
+    print(f"Modelo guardado en {filename}")
+ 
+# Function to load the model
+def load_model(filename):
+    with open(filename, 'rb') as file:
+        model = pickle.load(file)
+    print(f"Modelo cargado desde {filename}")
+    return model
+
 def main(K, N, L, alpha_start, alpha_end, alpha_decay, gamma, epsilon_start, epsilon_end, epsilon_decay):
     # Inicializar wandb
     wandb.init(project="taxi-v3-q-learning", config={
@@ -98,16 +113,19 @@ def main(K, N, L, alpha_start, alpha_end, alpha_decay, gamma, epsilon_start, eps
         epsilon = max(epsilon_end, epsilon * epsilon_decay)
         alpha = max(alpha_end, alpha * alpha_decay)
 
+    save_model(Q, "final_taxi_trained_model_2.pkl")
+
+
 if __name__ == "__main__":
-    K = 15000  # Cantidad de episodios de entrenamiento por iteración
-    N = 1000  # Cantidad de iteraciones
-    L = 50  # Cantidad de episodios de prueba por iteración
+    K = 2000  # Cantidad de episodios de entrenamiento por iteración
+    N = 200  # Cantidad de iteraciones
+    L = 10  # Cantidad de episodios de prueba por iteración
     gamma = 0.99  # Factor de descuento
-    epsilon_start = 0.5  # Valor inicial de epsilon
+    epsilon_start = 0.9  # Valor inicial de epsilon
     epsilon_end = 0.1  # Valor final de epsilon
-    epsilon_decay = 0.995  # Factor de decaimiento de epsilon
-    alpha_start = 0.5  # Valor inicial de alpha
+    epsilon_decay = 0.95  # Factor de decaimiento de epsilon
+    alpha_start = 0.1  # Valor inicial de alpha
     alpha_end = 0.01  # Valor final de alpha
-    alpha_decay = 0.995  # Factor de decaimiento de alpha
+    alpha_decay = 0.95  # Factor de decaimiento de alpha
 
     main(K, N, L, alpha_start, alpha_end, alpha_decay, gamma, epsilon_start, epsilon_end, epsilon_decay)
