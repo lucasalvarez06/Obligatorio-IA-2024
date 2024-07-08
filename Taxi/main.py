@@ -8,15 +8,12 @@ import wandb
 def optimal_policy(state, Q):
     return np.argmax(Q[state])
 
-def epsilon_greedy_policy(state, Q, env, epsilon=0.1):
+def epsilon_greedy_policy(state, Q, env, epsilon):
     explore = np.random.binomial(1, epsilon)
     if explore:
         action = env.action_space.sample()
-        # print('explore')
     else:
         action = np.argmax(Q[state])
-        # print('exploit')
-        
     return action
 
 def train(env, Q, K, alpha, gamma, epsilon):
@@ -58,15 +55,19 @@ def test(env, Q, L):
 
     return np.mean(total_rewards), np.mean(total_steps)
 
-def main(K, N, L, alpha, gamma, epsilon):
+def main(K, N, L, alpha_start, alpha_end, alpha_decay, gamma, epsilon_start, epsilon_end, epsilon_decay):
     # Inicializar wandb
     wandb.init(project="taxi-v3-q-learning", config={
         "K": K,
         "N": N,
         "L": L,
-        "alpha": alpha,
+        "alpha_start": alpha_start,
+        "alpha_end": alpha_end,
+        "alpha_decay": alpha_decay,
         "gamma": gamma,
-        "epsilon": epsilon
+        "epsilon_start": epsilon_start,
+        "epsilon_end": epsilon_end,
+        "epsilon_decay": epsilon_decay
     })
 
     # Crear el entorno
@@ -77,29 +78,36 @@ def main(K, N, L, alpha, gamma, epsilon):
     # Inicializar la tabla Q con ceros
     Q = np.zeros((states, actions))
 
+    alpha = alpha_start
+    epsilon = epsilon_start
+
     # Iterar
     for i in range(N):
-        # Ajustar epsilon
-        epsilon = max(0.01, epsilon * 0.99)
-        print("Iteration {}/{}, Epsilon: {}".format(i+1, N, epsilon))
-
         # Entrenar
         train(env, Q, K, alpha, gamma, epsilon)
 
         # Probar
         avg_reward, avg_steps = test(env, Q, L)
-        print("Average Reward: {}, Average Steps: {}".format(avg_reward, avg_steps))
+        print("Iteration {}/{}, Epsilon: {}, Alpha: {}, Average Reward: {}, Average Steps: {}".format(
+            i + 1, N, epsilon, alpha, avg_reward, avg_steps))
 
         # Registrar los resultados en wandb
-        wandb.log({"Iteration": i + 1, "Epsilon": epsilon, "Average Reward": avg_reward, "Average Steps": avg_steps})
+        wandb.log({"Iteration": i + 1, "Epsilon": epsilon, "Alpha": alpha, "Average Reward": avg_reward, "Average Steps": avg_steps})
 
+        # Ajustar epsilon y alpha
+        epsilon = max(epsilon_end, epsilon * epsilon_decay)
+        alpha = max(alpha_end, alpha * alpha_decay)
 
 if __name__ == "__main__":
-    K = 1000  # Cantidad de episodios de entrenamiento por iteración
-    N = 10  # Cantidad de iteraciones
-    L = 100  # Cantidad de episodios de prueba por iteración
-    alpha = 0.1  # Tasa de aprendizaje
-    gamma = 0.95  # Factor de descuento
-    epsilon = 0.5  # Probabilidad de exploración inicial
+    K = 15000  # Cantidad de episodios de entrenamiento por iteración
+    N = 1000  # Cantidad de iteraciones
+    L = 50  # Cantidad de episodios de prueba por iteración
+    gamma = 0.99  # Factor de descuento
+    epsilon_start = 0.5  # Valor inicial de epsilon
+    epsilon_end = 0.1  # Valor final de epsilon
+    epsilon_decay = 0.995  # Factor de decaimiento de epsilon
+    alpha_start = 0.5  # Valor inicial de alpha
+    alpha_end = 0.01  # Valor final de alpha
+    alpha_decay = 0.995  # Factor de decaimiento de alpha
 
-    main(K, N, L, alpha, gamma, epsilon)
+    main(K, N, L, alpha_start, alpha_end, alpha_decay, gamma, epsilon_start, epsilon_end, epsilon_decay)
